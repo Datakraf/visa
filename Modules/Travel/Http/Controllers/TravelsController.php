@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 
-class TravelController extends Controller
+class TravelsController extends Controller
 {
     /**
      * Display a listing of the resource.

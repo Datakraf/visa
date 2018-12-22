@@ -44,7 +44,7 @@ class RolesController extends Controller
             $role->syncPermissions($permissions);
             toast($role->name . ' permissions has been updated.', 'success', 'top');
         } else {
-            Session::flash('fail', 'Role with id ' . $id . ' note found.');
+            toast('Role with id ' . $id . ' not found.', 'error', 'top');
         }
 
         return redirect()->route('roles.index');
@@ -52,12 +52,10 @@ class RolesController extends Controller
 
     public function destroy($id)
     {
-
         Role::find($id)->delete();
-        Session::flash('success', 'The role has been deleted');
+        toast('The role has been deleted', 'success', 'top');
         return redirect()->back();
     }
-
     public function config()
     {
 

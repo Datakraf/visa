@@ -79,27 +79,27 @@
                 <ul class="nav nav-tabs border-0 flex-column flex-lg-row">
                     @can('view_applications')
                     <li class="nav-item">
-                        <a href="" class="nav-link">
+                        <a href="{{route('travel.index')}}" class="nav-link">
                             <i class="fe fe-document"></i>{{Auth::user()->hasRole('Admin') ? 'Application':'My
                             Applications'}}</a>
                     </li>
                     @endcan
 
                     @role('Admin')
-                    <li class="nav-item dropdown">
+                    <!-- <li class="nav-item dropdown">
                         <a href="javascript:void(0)" class="nav-link" data-toggle="dropdown">
                             <i class="fe fe-gear"></i> Configurations</a>
                         <div class="dropdown-menu dropdown-menu-arrow">
 
                             <a href="" class="dropdown-item">Applications</a>
                         </div>
-                    </li>
+                    </li> -->
                     <li class="nav-item dropdown">
                         <a href="javascript:void(0)" class="nav-link" data-toggle="dropdown">
                             <i class="fe fe-shield"></i> Administration</a>
                         <div class="dropdown-menu dropdown-menu-arrow">
-                            <a href="" class="dropdown-item">Users</a>
-                            <a href="" class="dropdown-item">Roles & Permissions</a>
+                            <a href="{{route('users.index')}}" class="dropdown-item">Users</a>
+                            <a href="{{route('roles.index')}}" class="dropdown-item">Roles & Permissions</a>
                         </div>
                     </li>
                     @endrole

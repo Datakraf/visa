@@ -39,8 +39,7 @@
                                     <option value=""></option>
                                 </select>
                             </td>
-                            <td class="text-center"><a name="remove" id="+p+" class="btn btn-danger btn-sm remove-participant text-white mx-auto"><i
-                                        class="fe fe-trash"></i> Delete</a></td>
+                            <td class="text-center"><a name="remove" id="+p+" class="btn btn-danger btn-sm remove-participant text-white mx-auto"><i class="fe fe-trash"></i> Delete</a></td>
                         </tr>
                     </tbody>
                 </table>

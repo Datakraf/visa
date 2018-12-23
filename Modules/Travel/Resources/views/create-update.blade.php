@@ -150,11 +150,38 @@
 
         });
 
+        $(function () {
+            var counter = 2;
+
+            $("#add-participant").on("click", function () {
+                var newRow = $("<tr>");
+                var cols = "";
+                cols += '<td>' + counter + '</td>';
+                cols += '<td>';
+                cols +=
+                    '<select name="financial_instrument[]" id="" class="form-control">';
+                cols += '<option value="">Please choose</option>';
+                cols +=
+                    '@foreach($instruments as $n)<option value="{{$n->id}}">{{$n->name}}</option>@endforeach</select></td>';
+                cols += '<td><input type="text" class="form-control" name="remarks[]" />';
+                cols += '</td>';
+                cols +=
+                    '<td class="text-center"><a class="btn btn-danger btn-sm ibtnDel text-white"><i class="fe fe-trash"></i>Delete</a></td>';
+                newRow.append(cols);
+                $("table.financial-aid").append(newRow);
+                counter++;
+            });
+
+            $("table.financial-aid").on("click", ".ibtnDel", function (event) {
+                $(this).closest("tr").remove();
+                counter -= 1
+            });
+
+        });
 
 
         $(function () {
             var p = 1;
-
             $('#add-participant').click(function () {
                 p++;
                 $('#dynamic_field_participant').append('<tr id="row-participant' + p +

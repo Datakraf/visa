@@ -49,10 +49,6 @@ class TravelsController extends Controller
         return view('travel::index', ['travels' => $this->travel->all()]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     * @return Response
-     */
     public function create()
     {
         return view('travel::create-update', [
@@ -61,11 +57,6 @@ class TravelsController extends Controller
         ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     * @param  Request $request
-     * @return Response
-     */
     public function store(Request $request)
     {
         $travel = $this->travel->create($this->data);
@@ -76,37 +67,23 @@ class TravelsController extends Controller
         return back();
     }
 
-    /**
-     * Show the specified resource.
-     * @return Response
-     */
+
     public function show()
     {
         return view('travel::show');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     * @return Response
-     */
     public function edit()
     {
         return view('travel::edit');
     }
 
-    /**
-     * Update the specified resource in storage.
-     * @param  Request $request
-     * @return Response
-     */
+
     public function update(Request $request)
     {
     }
 
-    /**
-     * Remove the specified resource from storage.
-     * @return Response
-     */
+
     public function destroy($id)
     {
         $this->travel->find($id)->delete();
@@ -118,10 +95,29 @@ class TravelsController extends Controller
     {
         if ($request->has('q')) {
             $input = $request->q;
-            $data = DB::table('users')->where('matric_num', 'LIKE', $input)->get();
+            $data = DB::table('users')->where('matric_num', '=', $input)->get();
             return response()->json($data);
         }
     }
+
+    public function loadSupervisors(Request $request)
+    {
+        if ($request->has('q')) {
+            $input = $request->q;
+            $data = DB::table('users')->where('name', 'LIKE', '%'.$input.'%')->get();
+            return response()->json($data);
+        }
+    }
+
+    public function loadCollegeFellows(Request $request)
+    {
+        if ($request->has('q')) {
+            $input = $request->q;
+            $data = DB::table('users')->where('name', 'LIKE', '%'.$input.'%')->get();
+            return response()->json($data);
+        }
+    }
+
 
     public function saveParticipants($travel)
     {

@@ -246,7 +246,7 @@
                 theme: 'bootstrap4',
                 width: '100%',
                 ajax: {
-                    url: "",
+                    url: "{{route('supervisor.search')}}",
                     dataType: 'json',
                     delay: 250,
                     processResults: function (data) {
@@ -270,15 +270,15 @@
                 theme: 'bootstrap4',
                 width: '100%',
                 ajax: {
-                    url: '/applications/college_fellow/search',
+                    url: "{{route('college.search')}}",
                     dataType: 'json',
                     delay: 250,
                     processResults: function (data) {
                         return {
                             results: $.map(data, function (item) {
                                 return {
-                                    text: item.email,
-                                    id: item.email,
+                                    text: item.name,
+                                    id: item.id,
 
                                 }
                             })

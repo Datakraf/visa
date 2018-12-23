@@ -7,9 +7,13 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Modules\Travel\Entities\Participant;
 use Modules\Travel\Entities\FinancialAid;
+use BrianFaust\Commentable\Traits\HasComments;
+use Spatie\ModelStatus\HasStatuses;
 
 class Travel extends Model
 {
+    use HasComments,HasStatuses;
+
     protected $table = 'travels';
     protected $guarded = [];
 

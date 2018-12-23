@@ -8,12 +8,16 @@ use Illuminate\Routing\Controller;
 use Modules\Travel\Entities\Travel;
 use PragmaRX\Countries\Package\Countries as Country;
 use Modules\Travel\Entities\FinancialInstrument;
-use Modules\Travel\Entities\Participant;
-use Modules\Travel\Entities\FinancialAid;
+use Modules\Travel\Traits\Attachments;
+use Modules\Travel\Traits\Financials;
+use Modules\Travel\Traits\Submissions;
+use Modules\Travel\Traits\Participants;
 use DB;
 
 class TravelsController extends Controller
 {
+    use Attachments, Financials, Submissions, Participants;
+
     public $travel;
     public $instrument;
     public $country;
@@ -60,10 +64,13 @@ class TravelsController extends Controller
     public function store(Request $request)
     {
         $travel = $this->travel->create($this->data);
+        $this->checkTravelType($request, $travel);
+        $this->checkForLateSubmission($request, $travel);
         $this->saveParticipants($travel);
         $this->saveFinancialAid($travel);
-
-        toast('record saved', 'success', 'top');
+        $this->saveAttachments($request, $travel);
+        $this->saveAsDraft($request, $travel);
+        $this->saveSubmit($request, $travel);        
         return back();
     }
 
@@ -104,7 +111,7 @@ class TravelsController extends Controller
     {
         if ($request->has('q')) {
             $input = $request->q;
-            $data = DB::table('users')->where('name', 'LIKE', '%'.$input.'%')->get();
+            $data = DB::table('users')->where('name', 'LIKE', '%' . $input . '%')->get();
             return response()->json($data);
         }
     }
@@ -113,35 +120,9 @@ class TravelsController extends Controller
     {
         if ($request->has('q')) {
             $input = $request->q;
-            $data = DB::table('users')->where('name', 'LIKE', '%'.$input.'%')->get();
+            $data = DB::table('users')->where('name', 'LIKE', '%' . $input . '%')->get();
             return response()->json($data);
         }
     }
 
-
-    public function saveParticipants($travel)
-    {
-        for ($i = 0; $i < count(request()->get('matric_num')); ++$i) {
-
-            if (request()->matric_num[$i] != '') {
-                Participant::create([
-                    'travel_id' => $travel->id,
-                    'user_id' => request()->matric_num[$i]
-                ]);
-            }
-        }
-    }
-
-    public function saveFinancialAid($travel)
-    {
-        for ($i = 0; $i < count(request()->get('financial_instrument')); ++$i) {
-            if (request()->remarks[$i] != '') {
-                FinancialAid::create([
-                    'travel_id' => $travel->id,
-                    'financialinstrument_id' => request()->financial_instrument[$i],
-                    'remarks' => request()->remarks[$i]
-                ]);
-            }
-        }
-    }
 }

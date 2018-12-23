@@ -13,10 +13,10 @@
     </div>
     <div class='card-body'>
         <div class="table-responsive">
-            <table class="table table-vcenter text-nowrap card-table table-striped" id="datatable">
+            <table class="table text-nowrap card-table table-striped" id="datatable">
                 <thead>
                     <th>#</th>
-                    <th>Title Event</th>
+                    <th>Event Title</th>
                     <th>Created At</th>
                     <th>Status</th>
                     <th>Actions</th>
@@ -49,7 +49,8 @@
                             @endcan
                         </td>
                     </tr>
-                    @endif @endforeach
+                    @endif 
+                    @endforeach
                 </tbody>
             </table>
         </div>

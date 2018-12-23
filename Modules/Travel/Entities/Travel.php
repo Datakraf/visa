@@ -5,6 +5,8 @@ namespace Modules\Travel\Entities;
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Modules\Travel\Entities\Participant;
+use Modules\Travel\Entities\FinancialAid;
 
 class Travel extends Model
 {
@@ -46,4 +48,13 @@ class Travel extends Model
         return Carbon::createFromFormat('Y-m-d', $value)->format(config('app.date_format'));
     }
 
+    public function participants()
+    {
+        return $this->hasMany(Participant::class);
+    }
+
+    public function financialAid()
+    {
+        return $this->hasMany(FinancialAid::class);
+    }
 }

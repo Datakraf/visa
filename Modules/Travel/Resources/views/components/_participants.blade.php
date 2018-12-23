@@ -10,7 +10,7 @@
                         <i class="fe fe-plus-circle"></i> Add Participants
                     </a>
                 </div>
-                <table class="table table-striped table-bordered table-sm">
+                <table class="table table-striped table-bordered table-sm participants">
                     <thead>
                         <tr>
                             <th>#</th>
@@ -36,7 +36,6 @@
                             </td>
                             <td>
                                 <select id="" name="matric_num[]" class="form-control students">
-                                    <option value=""></option>
                                 </select>
                             </td>
                             <td class="text-center"><a name="remove" id="+p+" class="btn btn-danger btn-sm remove-participant text-white mx-auto"><i class="fe fe-trash"></i> Delete</a></td>

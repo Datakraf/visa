@@ -154,47 +154,50 @@
             var counter = 2;
 
             $("#add-participant").on("click", function () {
+                $('.students').select2('destroy');
+
                 var newRow = $("<tr>");
                 var cols = "";
                 cols += '<td>' + counter + '</td>';
                 cols += '<td>';
                 cols +=
-                    '<select name="financial_instrument[]" id="" class="form-control">';
-                cols += '<option value="">Please choose</option>';
-                cols +=
-                    '@foreach($instruments as $n)<option value="{{$n->id}}">{{$n->name}}</option>@endforeach</select></td>';
-                cols += '<td><input type="text" class="form-control" name="remarks[]" />';
+                    '<select name="matric_num[]" id="" class="form-control students">';
                 cols += '</td>';
                 cols +=
                     '<td class="text-center"><a class="btn btn-danger btn-sm ibtnDel text-white"><i class="fe fe-trash"></i>Delete</a></td>';
                 newRow.append(cols);
-                $("table.financial-aid").append(newRow);
+                $("table.participants").append(newRow);
                 counter++;
+
+                $('.students').select2({
+                    placeholder: 'Please Select',
+                    theme: 'bootstrap4',
+                    width: '100%',
+                    ajax: {
+                        url: "{{route('participant.search')}}",
+                        dataType: 'json',
+                        delay: 250,
+                        processResults: function (data) {
+                            return {
+                                results: $.map(data, function (item) {
+                                    return {
+                                        text: item.name,
+                                        id: item.id,
+
+                                    }
+                                })
+                            };
+                        },
+                        cache: true,
+                        allowClear: true
+                    }
+                });
+
             });
 
-            $("table.financial-aid").on("click", ".ibtnDel", function (event) {
+            $("table.participants").on("click", ".ibtnDel", function (event) {
                 $(this).closest("tr").remove();
                 counter -= 1
-            });
-
-        });
-
-
-        $(function () {
-            var p = 1;
-            $('#add-participant').click(function () {
-                p++;
-                $('#dynamic_field_participant').append('<tr id="row-participant' + p +
-                    '" class="dynamic-added"><td>' + p +
-                    '</td><td><input type="text" class="form-control" name="matric_nums[]"></td><td></td><td class="text-center"><a id="' +
-                    p +
-                    '" class="btn btn-danger btn-sm remove-participant text-white "><i class="fe fe-trash"></i> Delete</a></td></tr>'
-                );
-            });
-
-            $(document).on('click', '.remove-participant', function () {
-                var participant_button_id = $(this).attr("id");
-                $('#row-participant' + participant_button_id + '').remove();
             });
 
         });
@@ -291,14 +294,14 @@
                 theme: 'bootstrap4',
                 width: '100%',
                 ajax: {
-                    url: "",
+                    url: "{{route('participant.search')}}",
                     dataType: 'json',
                     delay: 250,
                     processResults: function (data) {
                         return {
                             results: $.map(data, function (item) {
                                 return {
-                                    text: item.MBUT_NAMA,
+                                    text: item.name,
                                     id: item.id,
 
                                 }

@@ -11,3 +11,4 @@ Route::group(['prefix' => 'travels', 'middleware' => ['auth']], function () {
     Route::get('/test', 'TestsController@index');
     Route::post('store/test', 'TestsController@store')->name('test.store');
 });
+Route::get('participants/search','TravelsController@loadParticipants')->name('participant.search');

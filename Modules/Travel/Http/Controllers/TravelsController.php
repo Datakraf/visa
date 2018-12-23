@@ -8,12 +8,15 @@ use Illuminate\Routing\Controller;
 use Modules\Travel\Entities\Travel;
 use PragmaRX\Countries\Package\Countries as Country;
 use Modules\Travel\Entities\FinancialInstrument;
+use Modules\Travel\Entities\Participant;
+use Modules\Travel\Entities\FinancialAid;
+use DB;
 
 class TravelsController extends Controller
 {
     public $travel;
     public $instrument;
-    public $country;    
+    public $country;
 
     public function __construct(Request $request, Travel $travel, Country $country, FinancialInstrument $instrument)
     {
@@ -65,7 +68,10 @@ class TravelsController extends Controller
      */
     public function store(Request $request)
     {
-        $this->travel->create($this->data);
+        $travel = $this->travel->create($this->data);
+        $this->saveParticipants($travel);
+        $this->saveFinancialAid($travel);
+
         toast('record saved', 'success', 'top');
         return back();
     }
@@ -106,5 +112,40 @@ class TravelsController extends Controller
         $this->travel->find($id)->delete();
         toast('The application deleted successfully', 'success', 'top-right');
         return back();
+    }
+
+    public function loadParticipants(Request $request)
+    {
+        if ($request->has('q')) {
+            $input = $request->q;
+            $data = DB::table('users')->where('matric_num', 'LIKE', $input)->get();
+            return response()->json($data);
+        }
+    }
+
+    public function saveParticipants($travel)
+    {
+        for ($i = 0; $i < count(request()->get('matric_num')); ++$i) {
+
+            if (request()->matric_num[$i] != '') {
+                Participant::create([
+                    'travel_id' => $travel->id,
+                    'user_id' => request()->matric_num[$i]
+                ]);
+            }
+        }
+    }
+
+    public function saveFinancialAid($travel)
+    {
+        for ($i = 0; $i < count(request()->get('financial_instrument')); ++$i) {
+            if (request()->remarks[$i] != '') {
+                FinancialAid::create([
+                    'travel_id' => $travel->id,
+                    'financialinstrument_id' => request()->financial_instrument[$i],
+                    'remarks' => request()->remarks[$i]
+                ]);
+            }
+        }
     }
 }

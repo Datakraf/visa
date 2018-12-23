@@ -11,3 +11,4 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('notifications', 'NotificationsController@index')->name('notifications');
     Route::post('read/{id}/{application_id}', 'NotificationsController@markAsRead')->name('notifications.read');
 });
+

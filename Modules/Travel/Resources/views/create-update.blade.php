@@ -53,6 +53,7 @@
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
 <link rel="stylesheet" href="{{asset('css/select2.bootstrap4.min.css')}}">
+
 <style>
     .participants {
         display: none;
@@ -180,10 +181,11 @@
         $(function () {
             $('.college-fellow').hide();
             $('.immediate-supervisor').hide();
+
             $('.application_type').change(function () {
 
                 var selected_option = $('.application_type').val();
-                if(selected_option == ''){
+                if (selected_option == '') {
                     $('.college-fellow').hide();
                     $('.immediate-supervisor').hide();
                 }
@@ -203,6 +205,7 @@
             $('.supervisor').select2({
                 placeholder: 'Please Select',
                 theme: 'bootstrap4',
+                width:'100%',
                 ajax: {
                     url: "",
                     dataType: 'json',
@@ -226,6 +229,7 @@
             $('.college_fellow').select2({
                 placeholder: 'Please Select',
                 theme: 'bootstrap4',
+                width:'100%',
                 ajax: {
                     url: '/applications/college_fellow/search',
                     dataType: 'json',
@@ -249,6 +253,7 @@
             $('.students').select2({
                 placeholder: 'Please Select',
                 theme: 'bootstrap4',
+                width:'100%',
                 ajax: {
                     url: "",
                     dataType: 'json',

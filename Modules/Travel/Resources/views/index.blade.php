@@ -7,7 +7,7 @@
             <a class="btn btn-secondary btn-sm">Total: {{ $travels->count() }} {{ str_plural('travel',
                 $travels->count()) }}</a>
             @can('add_travels')
-            <a href="{{ route('travels.create') }}" class="btn btn-primary btn-sm text-white">
+            <a href="{{ route('travel.create') }}" class="btn btn-primary btn-sm text-white">
                 <i class=""></i> Create</a> @endcan
         </div>
     </div>
@@ -28,7 +28,7 @@
                         <td>{{ ++$key }}</td>
                         <td>{{str_limit($travel->title,$limit = 40,$end = '...')}}</td>
                         <td>{{$travel->created_at->toDayDateTimeString()}}</td>
-                        <td></td>
+                        <td>{{$travel->status}}</td>
                         <td>
                             @can('view_travels')
                             <a href="" class="btn btn-secondary btn-sm"><i class="fe fe-eye"></i> View</a>

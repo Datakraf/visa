@@ -21,7 +21,7 @@
                     </tr>
                 </thead>
                 <tbody id="dynamic_field">
-                    @isset($application)
+                    @isset($travel)
                     @foreach($financialaids as $key => $f)
                     <tr>
                         <td>{{++$key}}</td>
@@ -36,8 +36,7 @@
                             1
                         </td>
                         <td>
-                            <select name="financial_instrument[]" id="financial-aid-selector" class="form-control"
-                                onchange="changeplh()">
+                            <select name="financial_instrument[]" id="financial-aid-selector" class="form-control" onchange="changeplh()">
                                 <option value="">Please choose</option>
                                 @foreach($instrument as $n)
                                 <option value="{{$n->id}}">{{$n->name}}</option>

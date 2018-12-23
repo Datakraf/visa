@@ -78,7 +78,7 @@
         }
         // Event
         $(".event-from").datepicker({
-            dateFormat: "{{config('app.date_format_js ')}}",
+            dateFormat: "{{config('app.date_format_js')}}",
             changeMonth: true,
             numberOfMonths: 1,
             minDate: 0,
@@ -99,7 +99,7 @@
         // Tavel
         $(".travel-from").datepicker({
             defaultDate: "+1w",
-            dateFormat: "{{config('app.date_format_js ')}}",
+            dateFormat: "{{config('app.date_format_js')}}",
             changeMonth: true,
             numberOfMonths: 1,
             minDate: 0,
@@ -110,7 +110,7 @@
         });
         $(".travel-to").datepicker({
             defaultDate: "+1w",
-            dateFormat: "{{config('app.date_format_js ')}}",
+            dateFormat: "{{config('app.date_format_js')}}",
             changeMonth: true,
             numberOfMonths: 1,
             onClose: function (selectedDate) {
@@ -133,8 +133,8 @@
                     '<select name="financial_instrument[]" id="" class="form-control">';
                 cols += '<option value="">Please choose</option>';
                 cols +=
-                    '@foreach($instrument as $n)<option value="{{$n->name}}">{{$n->name}}</option>@endforeach</select></td>';
-                cols += '<td><input type="text" class="form-control" name="notes[]" />';
+                    '@foreach($instruments as $n)<option value="{{$n->id}}">{{$n->name}}</option>@endforeach</select></td>';
+                cols += '<td><input type="text" class="form-control" name="remarks[]" />';
                 cols += '</td>';
                 cols +=
                     '<td class="text-center"><a class="btn btn-danger btn-sm ibtnDel text-white"><i class="fe fe-trash"></i>Delete</a></td>';
@@ -149,6 +149,7 @@
             });
 
         });
+
 
 
         $(function () {

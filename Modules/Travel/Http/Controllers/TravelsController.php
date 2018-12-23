@@ -13,30 +13,27 @@ class TravelsController extends Controller
 {
     public $travel;
     public $instrument;
-    public $country;
+    public $country;    
 
     public function __construct(Request $request, Travel $travel, Country $country, FinancialInstrument $instrument)
     {
         $this->travel = $travel;
-        $this->middleware(function ($request, $next) {
-            $this->data = [
-                'user_id' => $request->user_id,
-                'title' => $request->title,
-                'venue' => $request->venue,
-                'state' => $request->state,
-                'country' => $request->country,
-                'description' => $request->description,
-                'event_start_date' => $request->event_start_date,
-                'event_end_date' => $request->event_end_date,
-                'travel_start_date' => $request->travel_start_date,
-                'travel_end_date' => $request->travel_end_date,
-                'alternate_email' => $request->alternate_email,
-                'type' => $request->type,
-                'event_type' => $request->event_type,
-                'travel_type' => $request->travel_type
-            ];
-            return $next($request);
-        });
+        $this->data = [
+            'user_id' => $request->user_id,
+            'title' => $request->title,
+            'venue' => $request->venue,
+            'state' => $request->state,
+            'country' => $request->country,
+            'description' => $request->description,
+            'event_start_date' => $request->event_start_date,
+            'event_end_date' => $request->event_end_date,
+            'travel_start_date' => $request->travel_start_date,
+            'travel_end_date' => $request->travel_end_date,
+            'alternate_email' => $request->alternate_email,
+            'type' => $request->type,
+            'event_type' => $request->event_type,
+            'travel_type' => $request->travel_type
+        ];
         $this->country = $country;
         $this->instrument = $instrument;
     }
@@ -56,7 +53,7 @@ class TravelsController extends Controller
     public function create()
     {
         return view('travel::create-update', [
-            'instrument' => $this->instrument->all(),
+            'instruments' => $this->instrument->all(),
             'countries' => $this->country->all()
         ]);
     }
@@ -68,6 +65,9 @@ class TravelsController extends Controller
      */
     public function store(Request $request)
     {
+        $this->travel->create($this->data);
+        toast('record saved', 'success', 'top');
+        return back();
     }
 
     /**

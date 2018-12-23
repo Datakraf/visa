@@ -4,6 +4,8 @@ namespace Modules\Travel\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Factory;
+use Modules\Travel\Observers\TravelsObserver;
+use Modules\Travel\Entities\Travel;
 
 class TravelServiceProvider extends ServiceProvider
 {
@@ -26,6 +28,8 @@ class TravelServiceProvider extends ServiceProvider
         $this->registerViews();
         $this->registerFactories();
         $this->loadMigrationsFrom(__DIR__ . '/../Database/Migrations');
+        Travel::observe(TravelsObserver::class);
+
     }
 
     /**

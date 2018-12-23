@@ -36,7 +36,8 @@
                             1
                         </td>
                         <td>
-                            <select name="financial_instrument[]" id="financial-aid-selector" class="form-control" onchange="changeplh()">
+                            <select name="financial_instrument[]" id="financial-aid-selector" class="form-control"
+                                onchange="changeplh()">
                                 <option value="">Please choose</option>
                                 @foreach($instrument as $n)
                                 <option value="{{$n->id}}">{{$n->name}}</option>
@@ -44,8 +45,9 @@
                             </select>
                         </td>
                         <td><input id="financial-aid-placeholder" type="text" class="form-control" name="remarks[]""></td>
-                                <td class="
-                                text-center"><a id="+f+" class="btn btn-danger btn-sm remove-financial text-white"><i class="fe fe-trash"></i>
+                                    <td class="
+                                text-center"><a id="+f+" class="btn btn-danger btn-sm remove-financial text-white"><i
+                                    class="fe fe-trash"></i>
                                 Delete</a></td>
                     </tr>
                 </tbody>
@@ -53,3 +55,35 @@
         </div>
     </div>
 </div>
+
+<script type="text/javascript">
+    $(function () {
+        var counter = 2;
+
+        $("#add-financial").on("click", function () {
+            var newRow = $("<tr>");
+            var cols = "";
+            cols += '<td>' + counter + '</td>';
+            cols += '<td>';
+            cols +=
+                '<select name="" id="" class="form-control">';
+            cols += '<option value="">Please choose</option>';
+            cols +=
+                '@foreach($instrument as $n)<option value="{{$n->name}}">{{$n->name}}</option>@endforeach</select></td>';
+            cols += '<td><input type="text" class="form-control" name="notes[]" />';
+            cols += '</td>';
+            cols +=
+                '<td class="text-center"><a class="btn btn-danger btn-sm ibtnDel text-white"><i class="fe fe-trash"></i>Delete</a></td>';
+            newRow.append(cols);
+            $("table.financial-aid").append(newRow);
+            counter++;
+        });
+
+        $("table.financial-aid").on("click", ".ibtnDel", function (event) {
+            $(this).closest("tr").remove();
+            counter -= 1
+        });
+
+    });
+
+</script>

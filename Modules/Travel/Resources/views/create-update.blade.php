@@ -66,7 +66,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.0/min/dropzone.min.js"></script>
 <script type="text/javascript">
-
     $(document).ready(function () {
         var selector = function (dateStr) {
             var d1 = $('.event-from').datepicker('getDate');
@@ -123,21 +122,30 @@
 
 
         $(function () {
-            var f = 1;
+            var counter = 2;
 
-            $('#add-financial').click(function () {
-                f++;
-                $('#dynamic_field').append('<tr id="row-financial' + f +
-                    '" class="dynamic-added"><td>' + f +
-                    '</td><td><select name="" id="" class="form-control selectize">@foreach($instrument as $n)<option value="{{$n->name}}">{{$n->name}}</option>@endforeach</select></td><td><input type="text" class="form-control" name="remarks[]"></td><td class="text-center"><a  name="remove" id="' +
-                    f +
-                    '" class="btn btn-danger btn-sm remove-financial text-white"><i class="fe fe-trash"></i> Delete</a></td></tr>'
-                );
+            $("#add-financial").on("click", function () {
+                var newRow = $("<tr>");
+                var cols = "";
+                cols += '<td>' + counter + '</td>';
+                cols += '<td>';
+                cols +=
+                    '<select name="financial_instrument[]" id="" class="form-control">';
+                cols += '<option value="">Please choose</option>';
+                cols +=
+                    '@foreach($instrument as $n)<option value="{{$n->name}}">{{$n->name}}</option>@endforeach</select></td>';
+                cols += '<td><input type="text" class="form-control" name="notes[]" />';
+                cols += '</td>';
+                cols +=
+                    '<td class="text-center"><a class="btn btn-danger btn-sm ibtnDel text-white"><i class="fe fe-trash"></i>Delete</a></td>';
+                newRow.append(cols);
+                $("table.financial-aid").append(newRow);
+                counter++;
             });
 
-            $(document).on('click', '.remove-financial', function () {
-                var financial_button_id = $(this).attr("id");
-                $('#row-financial' + financial_button_id + '').remove();
+            $("table.financial-aid").on("click", ".ibtnDel", function (event) {
+                $(this).closest("tr").remove();
+                counter -= 1
             });
 
         });
@@ -205,7 +213,7 @@
             $('.supervisor').select2({
                 placeholder: 'Please Select',
                 theme: 'bootstrap4',
-                width:'100%',
+                width: '100%',
                 ajax: {
                     url: "",
                     dataType: 'json',
@@ -229,7 +237,7 @@
             $('.college_fellow').select2({
                 placeholder: 'Please Select',
                 theme: 'bootstrap4',
-                width:'100%',
+                width: '100%',
                 ajax: {
                     url: '/applications/college_fellow/search',
                     dataType: 'json',
@@ -253,7 +261,7 @@
             $('.students').select2({
                 placeholder: 'Please Select',
                 theme: 'bootstrap4',
-                width:'100%',
+                width: '100%',
                 ajax: {
                     url: "",
                     dataType: 'json',

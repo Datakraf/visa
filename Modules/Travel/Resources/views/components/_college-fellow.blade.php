@@ -1,4 +1,4 @@
-<div class="card">
+<div class="card college-fellow">
     <div class="card-header">
         <h4 class="card-title">College Fellow</h4>
     </div>

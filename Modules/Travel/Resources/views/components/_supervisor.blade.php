@@ -1,4 +1,4 @@
-<div class="card">
+<div class="card immediate-supervisor">
     <div class="card-header">
         <h4 class="card-title">
             Supervisors

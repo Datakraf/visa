@@ -33,10 +33,7 @@
                             <option value="">Please select a country</option>
                             @foreach($countries as $c)
                             <option value="{!! $c->name->common !!}" @if(isset($application) && $application->country
-                                ==
-                                $c->name->common) selected @endif> {!!
-                                $c->name->common !!}</option>
-
+                                ==$c->name->common) selected @endif> {!!$c->name->common !!}</option>
                             @endforeach
                         </select>
                         @include('shared._errors',['entity'=>'country'])

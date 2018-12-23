@@ -47,17 +47,16 @@
 
 <!-- Page CSS -->
 @section('page-css')
+@include('asset-partials.dropzone.css.file')
 <link rel="stylesheet" href="{{asset('vendor/flag-icon-css-3/css/flag-icon.css')}}">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.0/min/dropzone.min.css">
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-@include('asset-partials.dropzone.css.file')
 <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
 <link rel="stylesheet" href="{{asset('css/select2.bootstrap4.min.css')}}">
 <style>
     .participants {
         display: none;
     }
-
 </style>
 @endsection
 <!-- Page JS -->
@@ -66,6 +65,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.0/min/dropzone.min.js"></script>
 <script type="text/javascript">
+
     $(document).ready(function () {
         var selector = function (dateStr) {
             var d1 = $('.event-from').datepicker('getDate');
@@ -179,10 +179,14 @@
 
         $(function () {
             $('.college-fellow').hide();
+            $('.immediate-supervisor').hide();
             $('.application_type').change(function () {
 
                 var selected_option = $('.application_type').val();
-
+                if(selected_option == ''){
+                    $('.college-fellow').hide();
+                    $('.immediate-supervisor').hide();
+                }
                 if (selected_option == 'faculty') {
                     $('.college-fellow').hide();
                     $('.immediate-supervisor').show();

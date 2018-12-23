@@ -1,4 +1,4 @@
-<div class="card">
+<div class="card participants">
     <div class="card-header">
         <h4 class="card-title">Participants</h4>
     </div>
@@ -15,7 +15,6 @@
                         <tr>
                             <th>#</th>
                             <th>Matric No.<span class="text-danger">*</span></th>
-                            <th>Participant Name</th>
                             <th class="text-center">Actions</th>
                         </tr>
                     </thead>
@@ -27,7 +26,6 @@
                             <td>{{++$key}}</td>
                             <td>{{$p->matric_num}}</td>
                             <td></td>
-                            <td></td>
                         </tr>
                         @endforeach
                         @endif
@@ -37,9 +35,12 @@
                                 1
                             </td>
                             <td>
-                                <select id="" name="matric_num[]" class="form-control students" style="height:50%"></select></td>
-                            <td></td>
-                            <td class="text-center"><a name="remove" id="+p+" class="btn btn-danger btn-sm remove-participant text-white mx-auto"><i class="fe fe-trash"></i> Delete</a></td>
+                                <select id="" name="matric_num[]" class="form-control students">
+                                    <option value=""></option>
+                                </select>
+                            </td>
+                            <td class="text-center"><a name="remove" id="+p+" class="btn btn-danger btn-sm remove-participant text-white mx-auto"><i
+                                        class="fe fe-trash"></i> Delete</a></td>
                         </tr>
                     </tbody>
                 </table>

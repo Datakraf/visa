@@ -5,16 +5,29 @@ namespace Modules\Travel\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Modules\Travel\Entities\Travel;
+use PragmaRX\Countries\Package\Countries as Country;
+use Modules\Travel\Entities\FinancialInstrument;
 
 class TravelsController extends Controller
 {
+    public $travel;
+    public $instrument;
+    public $country;
+
+    public function __construct(Travel $travel, Country $country, FinancialInstrument $instrument)
+    {
+        $this->travel = $travel;
+        $this->country = $country;
+        $this->instrument = $instrument;
+    }
     /**
      * Display a listing of the resource.
      * @return Response
      */
     public function index()
     {
-        return view('travel::index');
+        return view('travel::index', ['travels' => $this->travel->all()]);
     }
 
     /**
@@ -23,7 +36,10 @@ class TravelsController extends Controller
      */
     public function create()
     {
-        return view('travel::create');
+        return view('travel::create-update', [
+            'instrument' => $this->instrument->all(),
+            'countries' => $this->country->all()
+        ]);
     }
 
     /**
@@ -66,7 +82,10 @@ class TravelsController extends Controller
      * Remove the specified resource from storage.
      * @return Response
      */
-    public function destroy()
+    public function destroy($id)
     {
+        $this->travel->find($id)->delete();
+        toast('The application deleted successfully', 'success', 'top-right');
+        return back();
     }
 }

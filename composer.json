@@ -13,6 +13,7 @@
         "laravel/framework": "5.7.*",
         "laravel/tinker": "^1.0",
         "nwidart/laravel-modules": "^4.0",
+        "pragmarx/countries": "^0.5.9",
         "realrashid/sweet-alert": "^1.1",
         "spatie/laravel-permission": "^2.29"
     },

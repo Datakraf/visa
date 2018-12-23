@@ -7,7 +7,7 @@
             <div class="d-flex order-lg-2 ml-auto">
                 @if(Auth::user()->hasRole(['Admin','User']))
                 <div class="nav-item d-none d-md-flex">
-                    <a href="" class="btn btn-sm btn-outline-primary">
+                    <a href="{{route('travel.create')}}" class="btn btn-sm btn-outline-primary">
                         <i class="fe fe-plus-circle"></i> New Application</a>
                 </div>
                 @endif

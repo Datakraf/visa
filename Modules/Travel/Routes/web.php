@@ -3,6 +3,7 @@
 Route::group(['prefix' => 'travels', 'middleware' => ['auth']], function () {
     Route::get('/', 'TravelsController@index')->name('travel.index');
     Route::get('create', 'TravelsController@create')->name('travel.create');
+    Route::get('{id}/show', 'TravelsController@show')->name('travel.show');
     Route::get('{id}/edit', 'TravelsController@edit')->name('travel.edit');
     Route::post('store', 'TravelsController@store')->name('travel.store');
     Route::post('{id}/update', 'TravelsController@update')->name('travel.update');

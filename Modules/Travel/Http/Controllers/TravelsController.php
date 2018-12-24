@@ -70,14 +70,20 @@ class TravelsController extends Controller
         $this->saveFinancialAid($travel);
         $this->saveAttachments($request, $travel);
         $this->saveAsDraft($request, $travel);
-        $this->saveSubmit($request, $travel);        
+        $this->saveSubmit($request, $travel);
         return back();
     }
 
 
-    public function show()
+    public function show($id)
     {
-        return view('travel::show');
+        $travel = $this->travel->find($id);
+        $statuses = $travel->statuses->sortBy('created_at');
+        $remarks = $travel->comments->sortByDesc('created_at');
+        $financialaids = $travel->financialAids;
+        $participants = $travel->participants;
+        $flag_icon = Country::where('name.common', $travel->country)->pluck('flag.flag-icon');
+        return view('travel::show', compact('travel', 'remarks', 'statuses', 'financialaids', 'flag_icon', 'participants'));        
     }
 
     public function edit()

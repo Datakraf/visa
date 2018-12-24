@@ -12,6 +12,6 @@ class Participant extends Model
 
     public function travel()
     {
-        return $this->belongsTo(Travel::class,'');
+        return $this->belongsToMany(Travel::class,'travel_id');
     }
 }

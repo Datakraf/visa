@@ -9,10 +9,12 @@ use Modules\Travel\Entities\Participant;
 use Modules\Travel\Entities\FinancialAid;
 use BrianFaust\Commentable\Traits\HasComments;
 use Spatie\ModelStatus\HasStatuses;
+use Modules\Travel\Entities\TravelAttachment;
+use App\User;
 
 class Travel extends Model
 {
-    use HasComments,HasStatuses;
+    use HasComments, HasStatuses;
 
     protected $table = 'travels';
     protected $guarded = [];
@@ -57,8 +59,18 @@ class Travel extends Model
         return $this->hasMany(Participant::class);
     }
 
-    public function financialAid()
+    public function financialAids()
     {
         return $this->hasMany(FinancialAid::class);
+    }
+
+    public function attachments()
+    {
+        return $this->hasMany(TravelAttachment::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }

@@ -11,8 +11,7 @@
             <div class='container-fluid'>
                 <div class='htimeline row'>
                     @foreach($statuses as $s)
-                    <div data-date="{{$s->created_at->toDayDateTimeString()}}" class="step col 
-                        {{getApplicationStatusByName($s)}}">
+                    <div data-date="{{$s->created_at->toDayDateTimeString()}}" class="step col ">
                         <div>
                             {{$s->reason}}
                         </div>

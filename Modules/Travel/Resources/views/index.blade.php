@@ -31,7 +31,7 @@
                         <td>{{$travel->status}}</td>
                         <td>
                             @can('view_travels')
-                            <a href="" class="btn btn-secondary btn-sm"><i class="fe fe-eye"></i> View</a>
+                            <a href="{{route('travel.show',['id'=>$travel->id])}}" class="btn btn-secondary btn-sm"><i class="fe fe-eye"></i> View</a>
                             @endcan
 
                             @can('edit_travels')
@@ -39,7 +39,8 @@
                             @endcan
 
                             @can('delete_travels')
-                            <form action="{{route('travel.destroy',['id'=>$travel->id])}}" class="delete-travel" method="POST" style="display:inline">
+                            <form action="{{route('travel.destroy',['id'=>$travel->id])}}" class="delete-travel" method="POST"
+                                style="display:inline">
                                 @csrf
                                 {{method_field('DELETE')}}
                                 <button type="submit" class="btn-delete btn btn-sm btn-danger">
@@ -49,7 +50,7 @@
                             @endcan
                         </td>
                     </tr>
-                    @endif 
+                    @endif
                     @endforeach
                 </tbody>
             </table>

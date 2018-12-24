@@ -6,11 +6,13 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Spatie\Permission\Traits\HasRoles;
+use App\StudentProfile;
 use App\Profile;
+use Modules\Travel\Entities\Travel;
 
 class User extends Authenticatable
 {
-    use Notifiable,HasRoles;
+    use Notifiable, HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -33,5 +35,15 @@ class User extends Authenticatable
     public function profile()
     {
         return $this->hasOne(Profile::class, 'user_id');
+    }
+
+    public function studentProfile()
+    {
+        return $this->hasOne(studentProfile::class);
+    }
+
+    public function travels()
+    {
+        return $this->hasMany(Travel::class);
     }
 }

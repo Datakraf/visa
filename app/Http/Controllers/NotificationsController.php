@@ -6,13 +6,13 @@ use Illuminate\Http\Request;
 use App\Notification;
 use Auth;
 use Illuminate\Support\Facades\URL;
-use Modules\Application\Repositories\ApplicationRepository;
+use Modules\Travel\Entities\Travel;
 
 class NotificationsController extends Controller
 {
-    public function __construct(ApplicationRepository $app)
+    public function __construct(Travel $travel)
     {
-        $this->app = $app;
+        $this->travel = $travel;
     }
     
     public function index()
@@ -21,14 +21,14 @@ class NotificationsController extends Controller
         return view('backend.notifications.index', compact('results'));
     }
 
-    public function markAsRead($id, $application_id)
+    public function markAsRead($id, $travel_id)
     {
         Auth::user()->notifications->find($id)->markAsRead();
         
-        if (isset($application_id)) {
-            $app = $this->app->find($application_id);
+        if (isset($travel_id)) {
+            $app = $this->travel->find($application_id);
             // $app->setStatus('Read', 'Read by '.Auth::user()->profile->title.' '.Auth::user()->name);
-            $signedUrl = URL::signedRoute('applications.show', ['id'=> $application_id]);
+            $signedUrl = URL::signedRoute('applications.show', ['id'=> $travel_id]);
             return redirect($signedUrl);
         }
     }
